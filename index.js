@@ -41,7 +41,7 @@ client.connect((err) => {
 		const newReview = req.body;
 		reviewCollection.insertOne(newReview).then((result) => {
 			console.log(result, "Added new review ✅");
-			// res.send(result.insertedCount > 0);
+			res.send(result.insertedCount > 0);
 		});
 	});
 
@@ -58,7 +58,13 @@ client.connect((err) => {
 	app.get("/serviceList", (req, res) => {
 		orderCollection.find({ email: req.query.email }).toArray((error, documents) => {
 			res.send(documents);
-			console.log(error);
+		});
+	});
+
+	/* API : get all service list */
+	app.get("/admin/serviceList", (req, res) => {
+		orderCollection.find({}).toArray((error, documents) => {
+			res.send(documents);
 		});
 	});
 });
